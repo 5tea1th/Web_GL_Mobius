@@ -105,10 +105,23 @@
             const positionBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+
+
             if (gl.getError() !== gl.NO_ERROR) {
                 alert("Failed to buffer data.");
                 return;
             }
+
+            const vertexPositionLocation = gl.getAttribLocation(program, 'aVertexPosition');
+            gl.enableVertexAttribArray(vertexPositionLocation);
+            gl.vertexAttribPointer(vertexPositionLocation, 3, gl.FLOAT, false, 0, 0);
+
+            const projectionMatrixLocation = gl.getUniformLocation(program, 'uProjectionMatrix');
+            const modelViewMatrixLocation = gl.getUniformLocation(program, 'uModelViewMatrix');
+
+
+
 
 
         }

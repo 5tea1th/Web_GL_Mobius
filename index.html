@@ -174,6 +174,13 @@
                     rotationY += deltaX * 0.01;
                 }
             });
+            // Export button functionality (Placeholder)
+            document.getElementById('exportButton').addEventListener('click', () => {
+                const stlData = generateSTL(positions);
+                downloadSTL(stlData, 'mobius_strip.stl');
+            });
+            
+
 
 
 

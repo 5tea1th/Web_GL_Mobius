@@ -153,6 +153,18 @@
             }
             requestAnimationFrame(loop);
 
+            // Mouse event listeners
+            canvas.addEventListener('mousedown', (event) => {
+                mouseDown = true;
+                lastX = event.clientX;
+                lastY = event.clientY;
+            });
+
+            canvas.addEventListener('mouseup', () => {
+                mouseDown = false;
+            });
+
+
 
         
 

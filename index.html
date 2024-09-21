@@ -38,6 +38,12 @@
                 alert("Unable to initialize WebGL. Your browser may not support it.");
                 return;
             }
+            // Set canvas size
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            gl.viewport(0, 0, canvas.width, canvas.height); // Set the viewport
+
+            
         }
 
     </script>

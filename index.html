@@ -67,6 +67,15 @@
             gl.compileShader(vertexShader);
             gl.compileShader(fragmentShader);
 
+            if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+                alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(vertexShader));
+                return null;
+            }
+            if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+                alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(fragmentShader));
+                return null;
+            }
+
 
         }
 

@@ -102,6 +102,14 @@
                 }
             }
 
+            const positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+            if (gl.getError() !== gl.NO_ERROR) {
+                alert("Failed to buffer data.");
+                return;
+            }
+
 
         }
 

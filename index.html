@@ -219,6 +219,20 @@
             vec3.normalize(normal,normal);
             return normal;
         }
+        function downloadSTL(data, fileName) {
+            const blob = new Blob([data], {type: 'text/plain'});//Blob Creation: Converts the STL data into a Blob object with a plain text MIME type.
+            //A Blob (Binary Large Object) is a data type in web development used to represent raw binary data
+            // a Blob object allows you to store and manipulate raw data, such as files or binary data streams, in a manageable way
+            const url = URL.createObjectURL(blob);//URL Generation: Creates a temporary URL that references the Blob.
+            const a = document.createElement('a');
+            a.href = url;//Anchor Element: Sets up an anchor element with the URL and the desired file name.
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();//Programmatic Click: Adds the anchor to the DOM, clicks it to trigger the download, and then removes it.
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);//Cleanup: Revokes the temporary URL to free up resources.
+        }
+
 
     </script>
 </body>

@@ -147,6 +147,12 @@
                 const vertexCount = positions.length / 3;
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertexCount);
             }
+            function loop() {
+                draw();
+                requestAnimationFrame(loop);
+            }
+            requestAnimationFrame(loop);
+
 
         
 

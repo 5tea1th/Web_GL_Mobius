@@ -54,9 +54,19 @@
             `;
             const fragmentShaderSource = `
                 void main(void) {
-                    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black color for the Möbius strip
+                    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); 
+                    // Black color for the Möbius strip
                 }
             `;
+
+            // Compile shaders
+            const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+            const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+            gl.shaderSource(vertexShader, vertexShaderSource);
+            gl.shaderSource(fragmentShader, fragmentShaderSource);
+            gl.compileShader(vertexShader);
+            gl.compileShader(fragmentShader);
+
 
         }
 

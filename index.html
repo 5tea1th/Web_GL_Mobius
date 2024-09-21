@@ -27,6 +27,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
 </head>
 <body>
-    
+    <button id="exportButton">Export STL</button>
+    <canvas id="glcanvas"></canvas>
+    <script type="text/javascript">
+        function main() {
+            const canvas = document.getElementById("glcanvas");
+            const gl = canvas.getContext("webgl");
+
+            if (!gl) {
+                alert("Unable to initialize WebGL. Your browser may not support it.");
+                return;
+            }
+        }
+
+    </script>
+      
+
+
 </body>
 </html>

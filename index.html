@@ -119,7 +119,16 @@
 
             const projectionMatrixLocation = gl.getUniformLocation(program, 'uProjectionMatrix');
             const modelViewMatrixLocation = gl.getUniformLocation(program, 'uModelViewMatrix');
-            
+
+            let rotationX = 0;
+            let rotationY = 0;
+            let mouseDown = false;
+            let lastX = 0;
+            let lastY = 0;
+            function draw() {
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+
 
 
 

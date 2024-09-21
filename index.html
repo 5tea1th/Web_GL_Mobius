@@ -163,6 +163,18 @@
             canvas.addEventListener('mouseup', () => {
                 mouseDown = false;
             });
+            canvas.addEventListener('mousemove', (event) => {
+                if (mouseDown) {
+                    const deltaX = event.clientX - lastX;
+                    const deltaY = event.clientY - lastY;
+                    lastX = event.clientX;
+                    lastY = event.clientY;
+
+                    rotationX += deltaY * 0.01;
+                    rotationY += deltaX * 0.01;
+                }
+            });
+
 
 
 

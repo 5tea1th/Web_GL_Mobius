@@ -208,9 +208,20 @@
             return stlData;
         }
 
+        function calculateNormal(v1, v2, v3) {
+            const u = vec3.create();
+            const v = vec3.create();
+            const normal = vec3.create();
+
+            vec3.subtract(v,v2,v1);
+            vec3.subtract(u,v3,v1);
+            vec3.cross(normal,u,v);
+            vec3.normalize(normal,normal);
+            return normal;
+        }
 
     </script>
 </body>
-</html>1
+</html>
 
 

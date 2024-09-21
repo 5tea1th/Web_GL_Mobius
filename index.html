@@ -23,13 +23,14 @@
             cursor: pointer;
         }
     </style>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
 </head>
 <body>
     <button id="exportButton">Export STL</button>
     <canvas id="glcanvas"></canvas>
     <script type="text/javascript">
+      
+
         function main() {
             const canvas = document.getElementById("glcanvas");
             const gl = canvas.getContext("webgl");
@@ -38,6 +39,7 @@
                 alert("Unable to initialize WebGL. Your browser may not support it.");
                 return;
             }
+
             // Set canvas size
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -52,10 +54,10 @@
                     gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
                 }
             `;
+
             const fragmentShaderSource = `
                 void main(void) {
-                    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); 
-                    // Black color for the Möbius strip
+                    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black color for the Möbius strip
                 }
             `;
 
@@ -66,7 +68,6 @@
             gl.shaderSource(fragmentShader, fragmentShaderSource);
             gl.compileShader(vertexShader);
             gl.compileShader(fragmentShader);
-
             if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
                 alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(vertexShader));
                 return null;
@@ -105,9 +106,6 @@
             const positionBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-
-
-
             if (gl.getError() !== gl.NO_ERROR) {
                 alert("Failed to buffer data.");
                 return;
@@ -147,6 +145,7 @@
                 const vertexCount = positions.length / 3;
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertexCount);
             }
+
             function loop() {
                 draw();
                 requestAnimationFrame(loop);
@@ -163,6 +162,7 @@
             canvas.addEventListener('mouseup', () => {
                 mouseDown = false;
             });
+
             canvas.addEventListener('mousemove', (event) => {
                 if (mouseDown) {
                     const deltaX = event.clientX - lastX;
@@ -174,30 +174,43 @@
                     rotationY += deltaX * 0.01;
                 }
             });
+
             // Export button functionality (Placeholder)
             document.getElementById('exportButton').addEventListener('click', () => {
                 const stlData = generateSTL(positions);
                 downloadSTL(stlData, 'mobius_strip.stl');
             });
             
-
-
-
-
-
+        }
         
+        main();
+        function generateSTL(positions) {
+           
+            let stlData = 'solid mobius_strip\n';
+            
+            for (let i = 0; i < positions.length; i += 9) {
+                const v1 = [positions[i], positions[i+1], positions[i+2]];
+                const v2 = [positions[i+3], positions[i+4], positions[i+5]];
+                const v3 = [positions[i+6], positions[i+7], positions[i+8]];
 
+                const normal = calculateNormal(v1, v2, v3);
 
+                stlData += `  facet normal ${normal[0]} ${normal[1]} ${normal[2]}\n`;
+                stlData += '    outer loop\n';
+                stlData += `      vertex ${v1[0]} ${v1[1]} ${v1[2]}\n`;
+                stlData += `      vertex ${v2[0]} ${v2[1]} ${v2[2]}\n`;
+                stlData += `      vertex ${v3[0]} ${v3[1]} ${v3[2]}\n`;
+                stlData += '    endloop\n';
+                stlData += '  endfacet\n';
             }
+            stlData += 'endsolid mobius_strip\n';
 
+            return stlData;
+        }
 
-
-
-        
 
     </script>
-      
-
-
 </body>
-</html>
+</html>1
+
+
